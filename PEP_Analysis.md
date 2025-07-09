@@ -1,7 +1,7 @@
 Categorical variables use %, other use mean etc... Copy in research questions, Percent and cumulative percent in a table Age: mean and sd, recoded values: percentages, new number (o - etc)
 
 
-``` r
+```r
 # Load necessary libraries
 library(dplyr)
 library(stringr)
@@ -13,7 +13,7 @@ data <- read_excel("C:/Sandyn/SFGH_PEP/PEP_Data_SFGH_Rajeev_09_Dec_2024.xlsx")
 ```
 
 Basic statistics
-#```{r}
+#```r
 # Load the required library
 library(readxl)
 
@@ -42,7 +42,7 @@ for (col_name in colnames(data)) {
 
 ```
 Extracting Counts For Individual Columns
-# ```{r}
+# ```r
 column_name <- "TIME BETWEEN EVENT AND REPORTING"
 
 # Get unique values and their counts
@@ -79,7 +79,7 @@ VARIABLE RECODING
 *BINARY*
 _Gender, PEP, Physician Review, WEARING GLOVES, SEROCONVERSION AFTER 6 MONTHS,_
 _OFFICIAL REPORT FILED TO IPC, OTHER REPORTED OCCUPATIONAL EXPOSURE_
-```{r}
+```r
 # Load the dplyr package
 library(dplyr)
 
@@ -142,7 +142,7 @@ head(data_mutated$`OTHER REPORTED OCCUPATIONAL EXPOSURE`)
 ```
 *Triple & Quadripple*
 _TEST DONE_
-```{r}
+```r
 data_mutated <- data_mutated %>%
   mutate(
     # Normalize TEST DONE column: remove spaces and replace special characters
@@ -183,7 +183,7 @@ print(data_mutated$`TEST DONE`)
 ```
 
 _Where Injury Occured_
-```{r}
+```r
 # Grouping WHERE INJURY OCCURRED based on specified keywords
 # Grouping WHERE INJURY OCCURRED based on specified keywords
 data_mutated <- data_mutated %>%
@@ -210,7 +210,7 @@ print(data_mutated$`WHERE INJURY OCCURRED`)
  
 ```
 _Circumstances_
-```{r}
+```r
 # Use regex with str_detect to categorize the CIRCUMSTANCES column
 data_mutated$CIRCUMSTANCES <- case_when(
   str_detect(str_to_lower(data_mutated$CIRCUMSTANCES), "discard|disposing|throw|disposal") ~ 0, #"Discarding",
@@ -227,7 +227,7 @@ print(data_mutated$CIRCUMSTANCES)  # View the first few rows of the new 'categor
 ```
 
 _Site Of Injury_
-```{r}
+```r
 # Categorize SITE OF INJURY based on specific finger and left/right hand using regex
 data_mutated$`SITE OF INJURY` <- case_when(
   str_detect(str_to_lower(data_mutated$`SITE OF INJURY`), "thumb") & str_detect(str_to_lower(data_mutated$`SITE OF INJURY`), "left") ~ 1, #"Left Thumb",
@@ -260,7 +260,7 @@ head(data_mutated$`SITE OF INJURY`)  # View the first few rows of the new 'site_
 ```
 
 _Source Tested_
-```{r}
+```r
 # Create a new category based on SOURCE TESTED responses
 library(dplyr)
 library(stringr)
@@ -286,7 +286,7 @@ head(data_mutated$`SOURCE TESTED`)
 ```
 
 _WHERE WHERE 1ST REPORTED_
-```{r}
+```r
 # Categorize WHERE 1ST REPORTED into the specified groups
 data_mutated$`WHERE 1ST REPORTED` <- case_when(
   str_detect(str_to_lower(data_mutated$`WHERE 1ST REPORTED`), "a&e|hospital|sfg|mt\\. hope|point fortin|augustus long") ~ 0, #"A&E or Hospital",
@@ -302,7 +302,7 @@ head(data_mutated$`WHERE 1ST REPORTED`)
 ```
 
 _TIME BETWEEN EVENT AND REPORTING_
-```{r}
+```r
 # Categorize TIME BETWEEN EVENT AND REPORTING
 data_mutated$`TIME BETWEEN EVENT AND REPORTING` <- case_when(
   str_detect(str_to_lower(data_mutated$`TIME BETWEEN EVENT AND REPORTING`), "immediately") ~ 0, #"Immediately",
@@ -319,7 +319,7 @@ head(data_mutated$`TIME BETWEEN EVENT AND REPORTING`)
 ```
 
 _Medication_
-```{r}
+```r
 data_mutated$MEDICATIONS <- case_when(
   str_detect(data_mutated$`MEDICATIONS`, regex("Combivir & Kaletra", ignore_case = TRUE)) ~ 0, #"Combivir & Kaletra",
   str_detect(data_mutated$`MEDICATIONS`, regex("Combivir", ignore_case = TRUE)) ~ 1, #"Combivir",
@@ -334,7 +334,7 @@ head(data_mutated$MEDICATIONS)
 
 _Occupation_
 
-```{r}
+```r
 # 0 clinical staff, 1 student /trainee, 2 other
 data_mutated$Occupation <- case_when(
   str_detect(str_to_lower(data_mutated$`Occupation`), "atn") ~ 0, #"ATN",
@@ -355,7 +355,7 @@ head(data_mutated$`Occupation`)
 
 ```
 
-```{r}
+```r
 
 head(data_mutated$`TEST DONE`)
 head(data_mutated$`WHERE INJURY OCCURRED`)
@@ -367,7 +367,7 @@ head(data_mutated$`WHERE 1ST REPORTED`)
 ```
 
 
-```{r}
+```r
 # install.packages("writexl")
 library(writexl)
 
@@ -377,7 +377,7 @@ write_xlsx(as.data.frame(data_mutated), "C:/Sandyn/SFGH_PEP/data_mutated_factors
 ```
 
 # Chi squared tests
-```{r}
+```r
 
 # Load necessary libraries
 library(readxl)
@@ -450,7 +450,7 @@ for (res in results) {
 ```
 
 _chi sqared 2_
-```{r}
+```r
 # Load necessary library
 library(dplyr)
 
@@ -489,7 +489,7 @@ perform_chisq_test("PEP", "TIME BETWEEN EVENT AND REPORTING", data_mutated)
 
 
 
-
+``` r
 # Load necessary libraries
 library(dplyr)
 library(MASS)
@@ -581,12 +581,12 @@ all_results <- bind_rows(main_effects_results, interaction_results, simplified_i
 # Write results to an Excel file
 write_xlsx(all_results, "regression_models_results.xlsx")
 
-
+```
 
 
 _Display Beta, Wald, s.e, df, p, CI, AIC and R^2_
 # Logistic Regression - Correct PEP
-```{r}
+```r
 
 # Load necessary libraries
 library(dplyr)
@@ -657,7 +657,7 @@ all_results <- bind_rows(main_effects_results, interaction_results, simplified_i
 ```
 
 # Logistic Regression: Test.Done
-```{r}
+```r
 # Load necessary libraries
 library(dplyr)
 library(MASS)
@@ -731,7 +731,7 @@ print(paste("McFadden R²:", mcfadden_r2))
 
 
 _Saving Table: PEP_
-```{r}
+```r
 # Fit the models
 main_effects_model <- glm(
   PEP ~ WHERE.INJURY.OCCURRED + CIRCUMSTANCES + TEST.DONE, 
@@ -766,7 +766,7 @@ write_xlsx(final_results_table, "C:/Sandyn/SFGH_PEP/results_PEP.xlsx")
 
 
 _Saving Table: Test Done_
-```{r}
+```r
 # Load necessary libraries
 library(dplyr)
 library(MASS)
@@ -844,7 +844,7 @@ print(paste("McFadden R²:", mcfadden_r2))
 
 
 _Saving Table: TEST.DONE_
-```{r}
+```r
 # Fit the models
 main_effects_model <- glm(
   TEST.DONE ~ WHERE.INJURY.OCCURRED + CIRCUMSTANCES + SOURCE.TESTED, 
@@ -881,7 +881,7 @@ write_xlsx(final_results_table, "C:/Sandyn/SFGH_PEP/results_TEST_DONE.xlsx")
 
 # Kaplan Meier Surivial Analysis
 _KM Individual Interactions: Age_
-```{r}
+```r
 # Load necessary libraries
 library(survival)
 library(survminer)
@@ -943,7 +943,7 @@ ggsurvplot(
 ```
 
 _KM Individual Interactions: Gender_
-```{r}
+```r
 # Filter valid data
 data_valid_gender <- data_mutated[!is.na(data_mutated$`TIME BETWEEN EVENT AND REPORTING`) &
                                   !is.na(data_mutated$PEP) &
@@ -971,7 +971,7 @@ ggsurvplot(
 
 _KM Individual Interactions: Occupation_
 
-```{r}
+```r
 # Create the data frame using the raw data you provided
 PEP <- c(0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
@@ -1030,7 +1030,7 @@ raw_data <- data.frame(PEP, Occupation, TIME)
 
 ```
 
-```{r}
+```r
 
 # Convert PEP to numeric (1 for Yes, 0 for No)
 data_mutated$$PEP <- ifelse(data_mutated$PEP == "Yes", 1, 0)
@@ -1071,7 +1071,7 @@ ggsurvplot(
 ```
 
 _KM Individual Interactions: Where Injury Occured_
-```{r}
+```r
 # Ensure column names are valid for non-standard evaluation
 colnames(data_valid_injury) <- make.names(colnames(data_valid_injury))
 
@@ -1106,7 +1106,7 @@ ggsurvplot(
 ```
 
 _KM Individual Interactions: Circumstances_
-```{r}
+```r
 # Load necessary libraries
 library(survival)
 library(survminer)
@@ -1171,7 +1171,7 @@ ggsurvplot(
 ```
 
 _Saving Image_
-```{r}
+```r
 # Save the plot as a JPEG file
 jpeg("Kaplan_Meier_Survival_Curve.jpg", width = 800, height = 600)
 
@@ -1199,7 +1199,7 @@ dev.off()
 
 # Cox PH Hazards
 _Circumstances, Where Injury Occured_
-```{r}
+```r
 # Load necessary libraries
 library(survival)
 library(survminer)
