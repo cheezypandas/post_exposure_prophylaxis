@@ -43,7 +43,7 @@ for (col_name in colnames(data)) {
 ```
 
 # Extracting Counts For Individual Columns
-# ```r
+```r
 column_name <- "TIME BETWEEN EVENT AND REPORTING"
 
 # Get unique values and their counts
