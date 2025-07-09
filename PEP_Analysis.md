@@ -13,7 +13,7 @@ data <- read_excel("C:/Sandyn/SFGH_PEP/PEP_Data_SFGH_Rajeev_09_Dec_2024.xlsx")
 ```
 
 Basic statistics
-#```r
+```r
 # Load the required library
 library(readxl)
 
@@ -41,7 +41,8 @@ for (col_name in colnames(data)) {
 }
 
 ```
-Extracting Counts For Individual Columns
+
+# Extracting Counts For Individual Columns
 # ```r
 column_name <- "TIME BETWEEN EVENT AND REPORTING"
 
@@ -79,6 +80,8 @@ VARIABLE RECODING
 *BINARY*
 _Gender, PEP, Physician Review, WEARING GLOVES, SEROCONVERSION AFTER 6 MONTHS,_
 _OFFICIAL REPORT FILED TO IPC, OTHER REPORTED OCCUPATIONAL EXPOSURE_
+
+
 ```r
 # Load the dplyr package
 library(dplyr)
